@@ -65,7 +65,7 @@ Create a file called `traefik.env` in `~/gitops`
 ```shell
 echo 'TRAEFIK_DOMAIN=traefik.example.com' > ~/gitops/traefik.env
 echo 'EMAIL=admin@example.com' >> ~/gitops/traefik.env
-echo 'HASHED_PASSWORD='$(openssl passwd -apr1 changeit | sed 's/\$/\\\$/g') >> ~/gitops/traefik.env
+echo 'HASHED_PASSWORD='$(openssl passwd -apr1 changeit ) | sed -e s/\\$/\\$\\$/g >> ~/gitops/traefik.env
 ```
 
 Note:
@@ -79,7 +79,7 @@ env file generated at location `~/gitops/traefik.env` will look like following:
 ```env
 TRAEFIK_DOMAIN=traefik.example.com
 EMAIL=admin@example.com
-HASHED_PASSWORD=$apr1$K.4gp7RT$tj9R2jHh0D4Gb5o5fIAzm/
+HASHED_PASSWORD=$$apr1$$K.4gp7RT$$tj9R2jHh0D4Gb5o5fIAzm/
 ```
 
 Deploy the traefik container with letsencrypt SSL
